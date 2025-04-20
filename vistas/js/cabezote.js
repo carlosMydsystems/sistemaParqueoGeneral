@@ -1,0 +1,3 @@
+$("#btnSalirSistema").on("click",function(){
+
+})
