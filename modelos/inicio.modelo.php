@@ -37,7 +37,11 @@ class ModeloInicio{
 
 		if($datos != null){
 
-			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE usuarioId = :usuarioId AND estadoCaja = :estadoCaja");
+			$stmt = Conexion::conectar()->prepare("	SELECT * FROM $tabla 
+															WHERE 
+															usuarioId = :usuarioId 
+															AND 
+															estadoCaja = :estadoCaja");
 			$stmt -> bindParam(":estadoCaja", $datos["estadoCaja"], PDO::PARAM_STR);
 			$stmt -> bindParam(":usuarioId", $datos["usuarioId"], PDO::PARAM_STR);
 
