@@ -22,6 +22,20 @@ class AjaxCaja
 
 	}
 
+	
+	public $idCaja;
+
+	/*=============================================   
+				MOSTRAR DETALLE CAJA
+	=============================================*/
+	public function ajaxEliminarCaja()
+	{
+
+		$idCaja = $this->idCaja;
+		ControladorCaja::ctrEliminarCaja($idCaja);
+
+	}
+
 }
 
 
@@ -38,6 +52,19 @@ if (isset($_POST["accion"]) && $_POST["accion"] == "mostrarDetalleCaja") {
 
 }
 
+
+/*=============================================
+			MOSTRAR DETALLE CAJA
+=============================================*/
+
+if (isset($_POST["accion"]) && $_POST["accion"] == "eliminarCaja") {
+
+	$actualizarCaja = new AjaxCaja();
+	$actualizarCaja->idCaja = $_POST["idCaja"];
+
+	$actualizarCaja->ajaxEliminarCaja();
+
+}
 
 
 

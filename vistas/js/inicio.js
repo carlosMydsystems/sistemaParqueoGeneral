@@ -97,12 +97,12 @@ $("#btnGuardarMontoCaja").on("click", function () {
     })
 
 })
-
+/*
 $("#btnSalir").on("click", function () {
     window.location = "index.php?ruta=salir"
 })
 
-
+*/
 function actualizarHora() {
 
     let fecha = new Date();
@@ -141,7 +141,7 @@ function formatoHora(numero) {
 
 }
 
-/*=============================================
+/*=============================================   btnSalir
 VERIFICAR PLACA
 =============================================*/
 $(".btnIngresar").click(function () {
@@ -203,3 +203,14 @@ function checkSubmit() {
         return false;
     }
 }
+
+
+/*=============================================     
+VERIFICAR PLACA
+=============================================*/
+$("#btnSalir").click(function () {
+
+    let idCaja = $("#idCajaInicial").val();
+    window.location = "index.php?ruta=inicio&idCaja="+idCaja;
+
+});

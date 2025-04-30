@@ -297,7 +297,7 @@ MODAL SELECCIONAR CLIENTE
 
         <div class="modal-footer">
 
-          <button type="button" class="btn btn-default pull-left" id="btnSalir" data-dismiss="modal">Salir</button>
+          <button type="button" class="btn btn-default pull-left" id="btnSalir">Salir</button>
           <button type="submit" class="btn btn-primary">Guardar</button>
 
         </div>
@@ -314,3 +314,8 @@ MODAL SELECCIONAR CLIENTE
   </div>
 
 </div>
+
+  <?php
+    $eliminarCaja = new ControladorCaja();
+    $eliminarCaja -> ctrEliminarCaja();
+  ?>

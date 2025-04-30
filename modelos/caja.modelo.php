@@ -142,4 +142,21 @@ class ModeloCaja{
 			return "error";
 		}
 	}
+
+	/*=============================================      
+		   			ELIMINAR CAJA
+	=============================================*/
+
+	static public function mdlEliminarCaja($tabla,$item,$valor){
+
+		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE $item = :$item");
+		$stmt -> bindParam(":".$item, $valor, PDO::PARAM_STR);
+		if($stmt->execute()){
+			return "ok";	
+		}else{
+			return "error";
+		}
+	}
+
+
 }

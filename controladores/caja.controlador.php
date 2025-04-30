@@ -160,7 +160,7 @@ class ControladorCaja{
 
 	}
 
-	/*=============================================     estadoCaja
+	/*=============================================     
 			AGREGAR DETALLE DE CAJA
 	=============================================*/
 
@@ -201,6 +201,26 @@ class ControladorCaja{
     		}
         }
 	}
+
+
+	static public function ctrEliminarCaja(){
+		if(isset($_GET["idCaja"])){
+			$tabla = "caja";
+			$item = "idCaja";
+			$valor = $_GET["idCaja"];
+
+			$respuesta = ModeloCaja::mdlEliminarCaja($tabla,$item,$valor);
+
+			if($respuesta == "ok"){
+    
+    			echo '<script>
+					window.location = "salir";
+    			</script>';
+    
+    		}
+
+	}
+}
 	
 }
 	
