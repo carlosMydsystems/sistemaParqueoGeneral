@@ -20,7 +20,7 @@ class AjaxInicio{
 
     	}	
 
-	/*=============================================   mostrarCaja
+	/*=============================================   
 			ACTUALIZAR MONTO INICIAL DE CAJA
 	=============================================*/	
 	public $montoInicial, $fechaCaja,$usuarioId;
@@ -50,6 +50,42 @@ class AjaxInicio{
 		echo json_encode($respuesta);
 
     	}	
+
+	/*=============================================   
+				VERIFICAR ABONADO
+	=============================================*/	
+
+	public $placa;
+	public function ajaxVerificarAbonado(){
+
+		$valor = $this->placa;
+		$item = "placa";
+		$valor1 = 0;
+		$item1 = "estado";
+		
+		$respuesta = ControladorInicio::ctrMostrarAbonados($item, $valor,$item1, $valor1);
+
+		echo json_encode($respuesta);
+
+		}
+
+	/*=============================================   
+				CAMBIAR ESTADO ABONADO
+	=============================================*/	
+
+	public $idDetalleCliente ;
+	public function ajaxCambiarEstadoAbonado(){
+
+		
+		$valor2 = 1;
+		$valor3 = $this->idDetalleCliente;
+		$respuesta = ControladorInicio::ctrCambiarEstadoAbonado( $valor2, $valor3);
+
+		echo json_encode($respuesta);
+
+		}
+
+
     }  
 	
     /*=============================================
@@ -80,7 +116,7 @@ class AjaxInicio{
     
     }
 
-	/*=============================================   usuarioId
+	/*=============================================   
 			ACTUALIZAR MONTO INICIAL DE CAJA
 	=============================================*/	
      
@@ -92,5 +128,34 @@ class AjaxInicio{
 		$mostrarCaja -> estadoCaja = $_POST["estadoCaja"];
     
     	$mostrarCaja -> ajaxmostrarCaja();
+    
+    }
+
+	
+	/*=============================================   
+			ACTUALIZAR MONTO INICIAL DE CAJA
+	=============================================*/	
+     
+    if(isset( $_POST["accion"]) && $_POST["accion"] == "verificarAbonado"){    
+    
+    	$mostrarCaja = new AjaxInicio();
+
+		$mostrarCaja -> placa = $_POST["placa"];
+    
+    	$mostrarCaja -> ajaxVerificarAbonado();
+    
+    }
+
+	/*=============================================   
+				CAMBIAR ESTADO ABONADO
+	=============================================*/	
+     
+    if(isset( $_POST["accion"]) && $_POST["accion"] == "cambiarEstadoDetalleCliente"){    
+    
+    	$mostrarCaja = new AjaxInicio();
+
+		$mostrarCaja -> idDetalleCliente = $_POST["idDetalleCliente"];
+    
+    	$mostrarCaja -> ajaxCambiarEstadoAbonado();
     
     }

@@ -21,28 +21,80 @@ $(document).ready(function () {
             dataType: "json",
             success: function (respuesta) {
                 if (respuesta != "error") {
-
-                    //$("#modalIngresarMontoCaja").modal("hide");
                     $("#idCajaInicial").val(respuesta["idCaja"])
-
-                } else {
-
-
                 }
             }
-
         })
-
     }
-
 });
 
 $("#btnSeleccionCliente").on("click", function () {
-
-
     $("#modalSeleccionarVehiculoCliente").modal("show");
-
 })
+
+$("#nuevaPlaca").on("input", function () {
+   let placa = $("#nuevaPlaca").val()
+   if(placa.length == 7){
+    let datos = new FormData();
+    datos.append("placa",placa);
+    datos.append("accion","verificarAbonado")
+
+    $.ajax({
+        url: "ajax/inicio.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            if (respuesta != false) {
+
+                const fechaInicial = moment(respuesta['fechaInicioCliente'])
+                let hoy = moment(Date.now())
+                const diferencia = 30 - hoy.diff(fechaInicial,'days')
+                if(diferencia>=0){
+                    swal({
+                        type: "success",
+                        title: "¡El Vehiculo es un abonado! le falta " + diferencia + " días",
+                        showConfirmButton: true,
+                        confirmButtonText: "Cerrar"
+
+                    }).then(function(result){
+                        if(result.value){
+                            window.location = "inicio";
+                        }
+                    });
+                }else{
+
+
+                    let datos = new FormData();
+                    datos.append("idDetalleCliente", respuesta['idDetalleCliente']);
+                    datos.append("accion", "cambiarEstadoDetalleCliente");
+            
+                    $.ajax({
+                        url: "ajax/inicio.ajax.php",
+                        method: "POST",
+                        data: datos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        dataType: "json",
+                        success: function (respuesta) {
+                            if (respuesta != "error") {
+                                alert(respuesta)
+                            }
+                        }
+                    })
+
+                }
+            }
+        }
+    })
+
+   }
+})
+
 
 $(".btnSeleccionarVehiculoCliente").on("click", function () {
 
@@ -52,8 +104,6 @@ $(".btnSeleccionarVehiculoCliente").on("click", function () {
     $("#nuevaPlaca").val(idVehiculoClienteeleccionarVip);
     $("#tarifa").val(idtipovehiculo);
     $("#clienteVip").val("1");
-
-
     $("#modalSeleccionarVehiculoCliente").modal("hide");
 
 })

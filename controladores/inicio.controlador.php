@@ -33,11 +33,8 @@ class ControladorInicio{
 	static public function ctrVerificarPlaca($item, $valor,$condicion){
 
 		$tabla = "estacionamiento";
-
 		$respuesta = ModeloInicio::mdlVerificarPlaca($tabla, $item, $valor,$condicion); 
-
 		return $respuesta;
-		//return $valor;
 
 	}
 	
@@ -61,36 +58,27 @@ class ControladorInicio{
     static public function ctrRegistroVehiculo(){
     
         if(isset($_POST["accion"]) && $_POST["accion"]=="registrarVehiculo"){ 
+            
             $tabla = "estacionamiento";
 
             $nuevaPlaca = str_replace(" ","%20",$_POST["nuevaPlaca"]);
 
-            if(isset($_POST["clienteVip"])){
-                
-                $datos = array("nuevaPlaca" => $nuevaPlaca,
-                           "condicion" => $_POST["condicion"],
-                           "horaIngreso" => $_POST["horaIngreso"],
-                           "clienteVip" => $_POST["clienteVip"],
-                           "tarifa" => $_POST["tarifa"],
-                           "numerodocumento" => $_POST["numerodocumento"]);
-            }else{
                 $datos = array("nuevaPlaca" => $nuevaPlaca,
                            "condicion" => $_POST["condicion"],
                            "horaIngreso" => $_POST["horaIngreso"],
                            "tarifa" => $_POST["tarifa"],
                            "numerodocumento" => $_POST["numerodocumento"]);
-            }
             
             $respuesta = ModeloInicio::mdlRegistroVehiculo($tabla, $datos);
       
             if($respuesta != "error"){
 
                 $horaIngreso = str_replace(' ','%20',$_POST["horaIngreso"]); 
-                $respuesta = explode(":",$respuesta);
+                #$respuesta = explode(":",$respuesta);
 
-                $url_path = 'https://www.descociudadano.org.pe/AdministracionSanAndres/BackUp/registroBackUp.php?tabla='.$tabla.
+                $url_path = 'http://localhost/AdministracionSanAndres/BackUp/registroBackUp.php?tabla='.$tabla.
                 '&nuevaPlaca='.$nuevaPlaca.'&condicion='.$_POST["condicion"].'&horaIngreso='.$horaIngreso .
-                '&tipovehiculoid='.$_POST["tarifa"].'&lastIdEstacionamiento='.$respuesta[0].'&lastIdDetalleEstacionamiento='.$respuesta[1].''; 
+                '&tipovehiculoid='.$_POST["tarifa"].'&lastIdEstacionamiento='.$respuesta.''; 
 
                 $data = array('tabla' => 'tablita'); 
 
@@ -120,14 +108,14 @@ class ControladorInicio{
                 
                 if(result.value){
       
-                 window.location = "index.php?ruta=imprime&idEstacionamiento='.$respuesta[0].'";
+                 window.location = "index.php?ruta=imprime&idEstacionamiento='.$respuesta.'";
 
                 }
                 });
 
                 </script>';
             }
-            return $respuesta[0];
+            return $respuesta;
         }
     
     }
@@ -171,6 +159,31 @@ class ControladorInicio{
     
     		}
         }
+
+	}
+
+	/*============================================   
+	MOSTRAR TARIFAS 
+	=============================================*/ 
+
+	static public function ctrMostrarAbonados($item, $valor, $item1, $valor1){
+
+		$tabla = "cliente cl INNER JOIN detallecliente dcl ON cl.idCliente = dcl.clienteId INNER JOIN tipovehiculo tv ON dcl.tipoVehiculoId = tv.idtipovehiculo";
+		$respuesta = ModeloInicio::mdlMostrarAbonados($tabla, $item, $valor,$item1, $valor1);
+		return $respuesta;
+		
+	}
+	
+    /*=============================================   
+				REGISTRO DE USUARIO
+	=============================================*/
+
+	static public function ctrCambiarEstadoAbonado( $valor,  $valor1){
+
+    		$tabla = "detallecliente";
+    
+    		$respuesta = ModeloInicio::mdlCambiarEstadoAbonados($tabla, $valor, $valor1);
+			return $respuesta;
 
 	}
 
