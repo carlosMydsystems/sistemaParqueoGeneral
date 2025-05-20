@@ -47,6 +47,7 @@ class AjaxPago
 	public $cantidadHoras;
 	public $tipoPago;
 	public $cajaId;
+	public $idResumenBoleta;
 
 
 	public function ajaxActualizarPagoParqueo()
@@ -66,8 +67,9 @@ class AjaxPago
 			"serial" => $this->tipoDocumento,
 			"fechaHoraSalidaVehicular" => $this->fechaHoraSalidaVehicular,
 			"cantidadHoras" => $this->cantidadHoras,
-			"tipoPago" => $this->tipoPago,
+			"tipoPago" => $this->tipoPago,  
 			"cajaId" => $this->cajaId,
+			"idResumenBoleta" => $this->idResumenBoleta,
 			"condicion" => "PAGADO"
 		);
 
@@ -80,7 +82,7 @@ class AjaxPago
 
 	/*=============================================
 		  MOSTRAR CORRELATIVO
-		  =============================================*/
+	=============================================*/
 	public $tipoDocumento;
 	public function ajaxMostrarCorrelativo()
 	{
@@ -91,6 +93,22 @@ class AjaxPago
 		$respuesta = ControladorPago::ctrMostrarCorrelativo($tipo, $numero);
 
 		//echo $respuesta;
+
+		echo json_encode($respuesta);
+
+	}
+	
+
+	/*=============================================
+		  MOSTRAR CORRELATIVO RESUMEN
+	=============================================*/
+	public function ajaxMostrarCorrelativoResumen()
+	{
+
+		$valor = 1;
+		$item = "correlativo";
+
+		$respuesta = ControladorPago::ctrMostrarCorrelativoResumen($item, $valor);
 
 		echo json_encode($respuesta);
 
@@ -132,13 +150,14 @@ if (isset($_POST["accion"]) && $_POST["accion"] == "actualizarPagoParqueo") {
 	$valParqueo->cantidadHoras = $_POST["cantidadHoras"];
 	$valParqueo->tipoPago = $_POST["tipoPago"];  
 	$valParqueo->cajaId = $_POST["cajaId"];
+	$valParqueo->idResumenBoleta = $_POST["idResumenBoleta"];
 	$valParqueo->ajaxActualizarPagoParqueo();
 
 }
 
 
 /*=============================================
-MOSTRAR CORRELATIVO
+			MOSTRAR CORRELATIVO
 =============================================*/
 
 if (isset($_POST["accion"]) && $_POST["accion"] == "mostrarCorrelativo") {
@@ -149,6 +168,19 @@ if (isset($_POST["accion"]) && $_POST["accion"] == "mostrarCorrelativo") {
 	$valParqueo->ajaxMostrarCorrelativo();
 
 }
+
+/*=============================================
+			MOSTRAR CORRELATIVO RESUMEN
+=============================================*/
+
+if (isset($_POST["accion"]) && $_POST["accion"] == "mostrarCorrelativoResumen") {
+
+	$valParqueo = new AjaxPago();
+
+	$valParqueo->ajaxMostrarCorrelativoResumen();
+
+}
+
 
 
 

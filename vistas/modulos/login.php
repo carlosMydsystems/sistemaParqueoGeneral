@@ -36,7 +36,7 @@
         <div class="col-xs-4" style="margin-left: 50%;transform: translateX(-50%);" >
         <div >
             
-                <button type="submit" class="btn btn-primary" >Ingresar</button>
+                <button type="submit" id = "btnLogin" class="btn btn-primary" >Ingresar</button>
           
         </div>
         </div>

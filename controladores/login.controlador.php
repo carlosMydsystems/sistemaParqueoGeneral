@@ -3,9 +3,9 @@
 class ControladorLogin
 {
 
-	/*=============================================
-	   INGRESO DE USUARIO
-	   =============================================*/
+	# 		============================
+#	   		INGRESO DE USUARIO
+# 		============================
 
 	static public function ctrIngresoUsuario()
 	{
@@ -37,9 +37,7 @@ class ControladorLogin
 						$_SESSION["foto"] = $respuesta["foto"];
 						$_SESSION["perfil"] = $respuesta["perfil"];
 
-						/*=============================================
-						  REGISTRAR FECHA PARA SABER EL ÚLTIMO LOGIN
-						=============================================*/
+#							REGISTRAR FECHA PARA SABER EL ÚLTIMO LOGIN
 
 						date_default_timezone_set('America/Bogota');
 
@@ -63,13 +61,30 @@ class ControladorLogin
 								"estadoCaja" => 0
 							);
 							$_SESSION["cajaDuplicada"] = "No";
-							$agregarCaja = modeloLogin::mdlCrearCaja($tablacaja,$datos);
+							$agregarCaja = modeloLogin::mdlCrearCaja($tablacaja, $datos);
 							$_SESSION["idCaja"] = $agregarCaja;
-						}else{
+						} else {
 							$_SESSION["idCaja"] = $caja["idCaja"];
 							$_SESSION["cajaDuplicada"] = "Si";
 						}
+						$valor = 1;
+						$item = "correlativo";
 
+						$correlativoResumen = ControladorPago::ctrMostrarCorrelativoResumen($item, $valor);
+
+						if(!isset($correlativoResumen['estadoCorrelativo'])){
+							$correlativo = 1;
+							//$_SESSION['idResumenBoleta '] = $correlativoResumen
+							$_SESSION['idResumenBoleta'] = ControladorLogin::ctrRegistrarResumen($correlativo, $fecha, 1);
+						}else if($correlativoResumen['estadoCorrelativo'] == "0"){
+							$_SESSION["idResumenBoleta"] = $correlativoResumen["idResumenBoleta"];
+						}else{
+							$Aux = $correlativoResumen["correlativo"];
+							$Aux = $Aux + 1;
+							$_SESSION['idResumenBoleta'] = ControladorLogin::ctrRegistrarResumen($Aux, $fecha, 1);
+
+						}
+						
 						$fechaActual = $fecha . ' ' . $hora;
 
 						$item1 = "ultimo_login";
@@ -105,7 +120,20 @@ class ControladorLogin
 
 	}
 
+	static public function ctrRegistrarResumen($correlativo, $fecha, $tipoCorrelativoId){
+
+		$tabla = "resumenboleta";
+
+		$datos = array(
+							"correlativo" => $correlativo,
+							"fechaEnvio" => $fecha,
+							"estadoCorrelativo" => 0,
+							"tipoCorrelativoId" => $tipoCorrelativoId
+						);
+
+		$resumen = ModeloLogin::mdlRegistrarResumen($tabla, $datos);
+		return $resumen;
+
+	}
+
 }
-
-
-

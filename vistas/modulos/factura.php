@@ -269,11 +269,7 @@ if($ambiente){
     <div class="box">
 
       <div class="box-body">
-          
-          <?php
 
-
-?>
    <script type="text/javascript">
 
             

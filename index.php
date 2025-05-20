@@ -17,6 +17,7 @@ require_once "controladores/envioFallido.controlador.php";
 require_once "controladores/reimpresionDocumento.controlador.php";  
 require_once "controladores/login.controlador.php";  
 require_once "controladores/caja.controlador.php";  
+require_once "controladores/comprobante.controlador.php";  
 
 require_once "modelos/inicio.modelo.php";
 require_once "modelos/usuarios.modelo.php";
@@ -34,6 +35,7 @@ require_once "modelos/envioFallido.modelo.php";
 require_once "modelos/reimpresionDocumento.modelo.php";
 require_once "modelos/login.modelo.php";
 require_once "modelos/caja.modelo.php";
+require_once "modelos/comprobante.modelo.php";
 
 $plantilla = new ControladorPlantilla();
 $plantilla -> ctrPlantilla();

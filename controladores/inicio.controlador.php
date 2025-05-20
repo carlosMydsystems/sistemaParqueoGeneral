@@ -96,24 +96,31 @@ class ControladorInicio{
                 // result variable 
                 $result = file_get_contents( 
                         $url_path, false, null); 
-                
-                echo '<script>
-                swal({
-                type: "success",
-                title: "¡Se ha registrado el vehiculo correctamente!",
-                showConfirmButton: true,
-                confirmButtonText: "Cerrar"
-                
-                }).then(function(result){
-                
-                if(result.value){
-      
-                 window.location = "index.php?ruta=imprime&idEstacionamiento='.$respuesta.'";
+                if($_POST["tarifaPlana"] == "No"){
+					echo '<script>
+					swal({
+					type: "success",
+					title: "¡Se ha registrado el vehiculo correctamente!",
+					showConfirmButton: true,
+					confirmButtonText: "Cerrar"
+					
+					}).then(function(result){
+					
+					if(result.value){
+						
+					window.location = "index.php?ruta=imprime&idEstacionamiento='.$respuesta.'";
 
-                }
-                });
+					}
+					});
 
-                </script>';
+					</script>';
+				}else{
+					echo '<script>
+					
+					window.location = "index.php?ruta=pago&idEstacionamiento='.$respuesta.'";
+
+					</script>';
+				}
             }
             return $respuesta;
         }

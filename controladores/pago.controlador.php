@@ -50,7 +50,6 @@ class ControladorPago{
             }
             return $respuesta;
         }
-    
     }
     
     /*============================================     
@@ -68,7 +67,7 @@ class ControladorPago{
 	}
 	
 	
-	/*============================================     
+	/*============================================      
 	MOSTRAR CORRELATIVO 
 	=============================================*/ 
 
@@ -81,6 +80,21 @@ class ControladorPago{
 		return $respuesta;
 		
 	}
+
+	
+	/*============================================      
+	MOSTRAR CORRELATIVO 
+	=============================================*/ 
+
+	static public function ctrMostrarCorrelativoResumen($item, $valor){
+
+		$tabla = "resumenboleta";
+
+		$respuesta = ModeloPago::mdlMostrarCorrelativoResumen($tabla, $item, $valor);
+		return $respuesta;
+		
+	}
+
 
 	
 	 /*============================================   

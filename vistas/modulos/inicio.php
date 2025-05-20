@@ -13,7 +13,7 @@
     <h1>REGISTRO DE VEHICULOS</h1>
     <ol class="breadcrumb">
       <li><a href="inicio"><i class="fa fa-dashboard"></i> Inicio</a></li>
-      <li class="active">Registro de Veh&iacuteculos</li>
+      <li class="active">Registro de Veh&iacuteculos></li>
     </ol>
   </section>
 
@@ -73,6 +73,7 @@
                       <input type="hidden" name="clienteVip" id="clienteVip">
                       <input type="hidden" name="numerodocumento" value="0">
                       <input type="hidden" name="idCaja" id="idCaja" value="<?php echo $_SESSION["idCaja"]?>">
+                      <input type="hidden" name="tarifaPlana" id="tarifaPlana" value="No">
 
                     </div>
                     <br>
@@ -90,7 +91,7 @@
 
                         foreach ($tarifas as $key => $value) {
 
-                          echo '<option value="' . $value["idtipovehiculo"] . '">' . $value["nombretipovehiculo"] . '</option>';
+                          echo '<option tipoPlana="'.$value["plana"].'" value="' . $value["idtipovehiculo"] .'">' . $value["nombretipovehiculo"] . '</option>';
 
                         }
 

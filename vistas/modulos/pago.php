@@ -57,6 +57,7 @@
                                                     <input type="text" class="form-control input-lg"
                                                         id="idEstacionamiento" name="idEstacionamiento"
                                                         style="font-size:25px;" placeholder="Ingresar codigo de barras"
+                                                        value="<?php if(isset($_GET['idEstacionamiento'])){echo $_GET['idEstacionamiento'];}?>"
                                                         autofocus>
                                                 </div>
                                             </div>
@@ -224,6 +225,7 @@
                                             <input type="hidden" value="<?php echo $_SESSION["id"] ?>"
                                                 id="variableSesion">
                                             <input type="hidden" value="<?php echo $_SESSION["idCaja"] ?>" id="cajaId">
+                                            <input type="hidden" value="<?php echo $_SESSION["idResumenBoleta"] ?>" id="idResumenBoleta">
                                         </div>
 
                                     </div>

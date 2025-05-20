@@ -203,7 +203,7 @@ class ControladorCaja{
 	}
 
 
-	static public function ctrEliminarCaja(){
+	static public function ctrEliminarCaja($idCaja){
 		if(isset($_GET["idCaja"])){
 			$tabla = "caja";
 			$item = "idCaja";

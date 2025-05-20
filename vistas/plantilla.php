@@ -135,8 +135,10 @@ CUERPO DOCUMENTO
          $_GET["ruta"] == "reimprimeDocumento" ||
          $_GET["ruta"] == "detalleCaja" ||
          $_GET["ruta"] == "reimpresionDocumento" ||
-         $_GET["ruta"] == "producto" ||
+         $_GET["ruta"] == "producto" ||    
          $_GET["ruta"] == "caja" ||
+         $_GET["ruta"] == "comprobante" ||
+         $_GET["ruta"] == "descargarExcel" ||
          $_GET["ruta"] == "salir"){
 
         include "modulos/".$_GET["ruta"].".php";
@@ -182,6 +184,8 @@ CUERPO DOCUMENTO
 <script src="vistas/js/caja.js"></script>
 <script src="vistas/js/cabezote.js"></script>  
 <script src="vistas/js/detalleCaja.js"></script>  
+<script src="vistas/js/comprobante.js"></script>  
+<script src="vistas/js/login.js"></script>  
 
 </body>
 </html>

@@ -59,7 +59,7 @@ class ModeloPago
 
 	}
 
-	/*=============================================    
+	/*=============================================     
 	   MOSTRAR CORRELATIVO
 	   =============================================*/
 
@@ -69,6 +69,22 @@ class ModeloPago
 		$stmt = Conexion::conectar()->prepare("SELECT numerodocumento FROM $tabla WHERE tipodocumento = :tipoDocumento ORDER BY $numero DESC LIMIT 1");
 
 		$stmt->bindParam(":tipoDocumento", $tipo, PDO::PARAM_STR);
+		$stmt->execute();
+
+		return $stmt->fetch();
+	}
+
+	
+	/*=============================================    
+	   MOSTRAR CORRELATIVO
+	   =============================================*/
+
+	static public function mdlMostrarCorrelativoResumen($tabla, $item, $valor)
+	{
+
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE tipoCorrelativoId = :tipoCorrelativoId ORDER BY $item DESC LIMIT 1");
+
+			$stmt->bindParam(":tipoCorrelativoId" , $valor, PDO::PARAM_INT);
 		$stmt->execute();
 
 		return $stmt->fetch();
@@ -105,7 +121,7 @@ class ModeloPago
 		$stmt = $dbh->prepare("UPDATE $tabla SET condicion = :condicion, ruc = :ruc, tipoPago = :tipoPago,  
          montoPago = :montoPago, razonsocial = :razonsocial, direccionfiscal = :direccionfiscal, igvPago = :igvPago, 
          subtotalPago = :subtotalPago, tipoDocumento = :tipoDocumento, numerodocumento = :numerodocumento, serial = :serial, 
-		 fechapago = :fechapago, cajaId = :cajaId
+		 fechapago = :fechapago, cajaId = :cajaId, resumenId =:idResumenBoleta
          WHERE idEstacionamiento = :idEstacionamiento");
 
 		if ($datos["tipoDocumento"] == "FACTURA") {
@@ -133,6 +149,7 @@ class ModeloPago
 		$stmt->bindParam(":fechapago", $datos["fechaHoraSalidaVehicular"], PDO::PARAM_STR);
 		$stmt->bindParam(":tipoPago", $datos["tipoPago"], PDO::PARAM_STR); 
 		$stmt->bindParam(":cajaId", $datos["cajaId"], PDO::PARAM_INT); 
+		$stmt->bindParam(":idResumenBoleta", $datos["idResumenBoleta"], PDO::PARAM_INT); 
 
 		if ($stmt->execute()) {
 			return "ok";

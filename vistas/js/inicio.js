@@ -32,6 +32,12 @@ $("#btnSeleccionCliente").on("click", function () {
     $("#modalSeleccionarVehiculoCliente").modal("show");
 })
 
+$("#tarifa").on("change",function(){
+
+    let tipoPlana = $("#tarifa>option:selected").attr("tipoPlana")
+    $("#tarifaPlana").val(tipoPlana)
+})
+
 $("#nuevaPlaca").on("input", function () {
    let placa = $("#nuevaPlaca").val()
    if(placa.length == 7){

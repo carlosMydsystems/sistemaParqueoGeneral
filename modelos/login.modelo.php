@@ -22,9 +22,10 @@ class ModeloLogin{
 			return $stmt -> fetchAll();
 		}
 	}
-	/*=============================================    mdlCrearCaja
-				MOSTRAR CAJA
-	=============================================*/
+
+	/*===================================== 
+				CREAR CAJA
+	=======================================*/
 
 	static public function mdlCrearCaja($tabla, $datos){
 
@@ -38,15 +39,35 @@ class ModeloLogin{
 		$stmt->bindParam(":estadoCaja", $datos["estadoCaja"], PDO::PARAM_STR);
 
 		if ($stmt->execute()) {
-
 			return $dbh->lastInsertId();
-
 		} else {
-
 			return "error";
-
 		}
+	}
 
+
+
+	/*===================================== 
+				CREAR CAJA
+	=======================================*/
+
+	static public function mdlRegistrarResumen($tabla, $datos){
+
+		$dbh = Conexion::conectar();
+		
+		$stmt = $dbh->prepare("INSERT INTO $tabla(correlativo,fechaEnvio,estadoCorrelativo,tipoCorrelativoId) 
+		VALUES (:correlativo,:fechaEnvio,:estadoCorrelativo,:tipoCorrelativoId)");
+
+		$stmt->bindParam(":correlativo", $datos["correlativo"], PDO::PARAM_STR);
+		$stmt->bindParam(":fechaEnvio", $datos["fechaEnvio"], PDO::PARAM_STR);
+		$stmt->bindParam(":estadoCorrelativo", $datos["estadoCorrelativo"], PDO::PARAM_STR);
+		$stmt->bindParam(":tipoCorrelativoId", $datos["tipoCorrelativoId"], PDO::PARAM_STR);
+
+		if ($stmt->execute()) {
+			return $dbh->lastInsertId();
+		} else {
+			return "error";
+		}
 	}
 
 }
